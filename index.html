@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RajasthanExamHub - RSMSSB Study Material</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1D9E75">
+    <meta name="description" content="RSMSSB Exams ke liye free study material, previous year papers, aur online quizzes. Lab Assistant, Constable, aur sab exams ka material ek jagah.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1D9E75 0%, #0F6E56 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #1D9E75;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .category-tabs::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        
+        .tab-btn {
+            flex-shrink: 0;
+            padding: 0.5rem 1.25rem;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .tab-btn.active {
+            background: #1D9E75;
+            color: white;
+            border-color: #1D9E75;
+        }
+        
+        .tab-btn:hover {
+            border-color: #1D9E75;
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #1D9E75;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .exam-card:active {
+            transform: scale(0.98);
+        }
+        
+        .exam-card h3 {
+            color: #1D9E75;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+        
+        .exam-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-resources {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .resource-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: #f0f8f5;
+            border: 1px solid #d4e8e2;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #0F6E56;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .resource-btn:hover {
+            background: #1D9E75;
+            color: white;
+            border-color: #1D9E75;
+        }
+        
+        .resource-icon {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+        
+        .empty-state p {
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: #f9f9f9;
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .contact-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .contact-section h3 {
+            color: #1D9E75;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .contact-form button {
+            padding: 0.75rem;
+            background: #1D9E75;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .contact-form button:hover {
+            background: #0F6E56;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #FFF8E1;
+            color: #B8860B;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .exam-card {
+                padding: 1.25rem;
+            }
+            
+            .container {
+                padding: 0.75rem;
+            }
+        }
+        
+        /* AdSense placement area */
+        .ad-space {
+            background: #f0f0f0;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">📚 RajasthanExamHub</div>
+        <div class="tagline">RSMSSB Exams - Free Study Material & PDF</div>
+    </header>
+    
+    <div class="container">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Exam ya topic khojo...">
+        </div>
+        
+        <div class="category-tabs">
+            <button class="tab-btn active" data-category="all">सभी (All)</button>
+            <button class="tab-btn" data-category="lab-assistant">Lab Assistant</button>
+            <button class="tab-btn" data-category="constable">Constable</button>
+            <button class="tab-btn" data-category="other">Other Exams</button>
+        </div>
+        
+        <!-- AdSense Space 1 -->
+        <div class="ad-space">
+            Google AdSense Banner (728x90 या 300x250)<br>
+            <small>Ads automatically load jab aap publish karoge</small>
+        </div>
+        
+        <div id="examsContainer"></div>
+        
+        <!-- AdSense Space 2 -->
+        <div class="ad-space">
+            Google AdSense Square or Banner
+        </div>
+        
+        <div class="contact-section">
+            <h3>📧 हमसे संपर्क करें</h3>
+            <form class="contact-form" onsubmit="handleContactForm(event)">
+                <input type="text" placeholder="आपका नाम" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="आपका संदेश..."></textarea>
+                <button type="submit">संदेश भेजें</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2024 RajasthanExamHub | सभी exam के लिए official sources के links</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">यह एक non-profit study platform है। हम सिर्फ links provide करते हैं।</p>
+    </footer>
+
+    <script>
+        // Sample exam data with PDF links
+        const examsData = [
+            {
+                id: 1,
+                title: "RSMSSB Lab Assistant 2024-25",
+                category: "lab-assistant",
+                description: "Physics, Chemistry, Biology के लिए previous year papers और study material",
+                badge: "Latest",
+                resources: [
+                    { name: "Physics Previous Paper 2024", icon: "📄", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Chemistry Study Notes", icon: "📖", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Biology MCQ Practice", icon: "❓", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Syllabus PDF", icon: "📋", url: "https://rsmssb.rajasthan.gov.in" }
+                ]
+            },
+            {
+                id: 2,
+                title: "RSMSSB Constable 2024",
+                category: "constable",
+                description: "General Knowledge, Reasoning, और Math के complete notes",
+                badge: "Popular",
+                resources: [
+                    { name: "GK Previous Paper", icon: "📄", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Reasoning Guide", icon: "🧠", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Math Solutions", icon: "🔢", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Mock Test Series", icon: "⚡", url: "https://rsmssb.rajasthan.gov.in" }
+                ]
+            },
+            {
+                id: 3,
+                title: "BPSC Exam Preparation",
+                category: "other",
+                description: "Rajasthan के सभी BPSC related exams का material",
+                badge: "Updated",
+                resources: [
+                    { name: "BPSC Paper Archive", icon: "📚", url: "https://bpsc.rajasthan.gov.in" },
+                    { name: "Interview Tips", icon: "💡", url: "https://bpsc.rajasthan.gov.in" },
+                    { name: "Current Affairs", icon: "📰", url: "https://bpsc.rajasthan.gov.in" },
+                    { name: "Notification Updates", icon: "🔔", url: "https://bpsc.rajasthan.gov.in" }
+                ]
+            },
+            {
+                id: 4,
+                title: "Rajasthan Police Exam",
+                category: "other",
+                description: "Police constable और SI exams के लिए complete preparation",
+                badge: "New",
+                resources: [
+                    { name: "Physical Test Guide", icon: "💪", url: "https://rajasthanpolice.gov.in" },
+                    { name: "Written Test Papers", icon: "📝", url: "https://rajasthanpolice.gov.in" },
+                    { name: "Selection Process", icon: "✓", url: "https://rajasthanpolice.gov.in" },
+                    { name: "Important Links", icon: "🔗", url: "https://rajasthanpolice.gov.in" }
+                ]
+            },
+            {
+                id: 5,
+                title: "RSMSSB Junior Assistant",
+                category: "lab-assistant",
+                description: "Clerical और administrative exams के लिए notes",
+                badge: "Updated",
+                resources: [
+                    { name: "English Grammar", icon: "🔤", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Hindi Vyakaran", icon: "हि", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Previous Questions", icon: "❓", url: "https://rsmssb.rajasthan.gov.in" },
+                    { name: "Full Mock Test", icon: "🎯", url: "https://rsmssb.rajasthan.gov.in" }
+                ]
+            }
+        ];
+        
+        let currentCategory = 'all';
+        
+        function renderExams(category = 'all', searchTerm = '') {
+            const container = document.getElementById('examsContainer');
+            
+            let filtered = examsData;
+            
+            if (category !== 'all') {
+                filtered = filtered.filter(exam => exam.category === category);
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(exam => 
+                    exam.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    exam.description.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>कोई परीक्षा नहीं मिली।</p><p style="font-size: 0.9rem;">दूसरी category try करें या हमसे संपर्क करें।</p></div>';
+                return;
+            }
+            
+            container.innerHTML = filtered.map(exam => `
+                <div class="exam-card">
+                    <div style="margin-bottom: 0.75rem;">
+                        <span class="badge">${exam.badge}</span>
+                    </div>
+                    <h3>${exam.title}</h3>
+                    <p>${exam.description}</p>
+                    <div class="card-resources">
+                        ${exam.resources.map(resource => `
+                            <a href="${resource.url}" target="_blank" rel="noopener" class="resource-btn">
+                                <span class="resource-icon">${resource.icon}</span>
+                                <span>${resource.name}</span>
+                                <span style="font-size: 0.8rem;">→</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Event listeners
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                renderExams(currentCategory, document.getElementById('searchInput').value);
+            });
+        });
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderExams(currentCategory, e.target.value);
+        });
+        
+        function handleContactForm(event) {
+            event.preventDefault();
+            alert('धन्यवाद! आपका संदेश हमें मिल गया। जल्द ही reply दूंगा।');
+            event.target.reset();
+        }
+        
+        // Install app banner (PWA)
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+        
+        // Initial render
+        renderExams();
+    </script>
+</body>
+</html>
